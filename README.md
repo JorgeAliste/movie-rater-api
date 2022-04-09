@@ -1,1 +1,1 @@
-# demoApp
+# Movie Rater API
