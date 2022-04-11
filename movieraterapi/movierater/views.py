@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from rest_framework import viewsets, status
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.core.exceptions import ObjectDoesNotExist
@@ -13,6 +14,7 @@ from .models import Movie, Rating
 class MovieViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
+    authentication_classes = (TokenAuthentication,)
 
     @action(detail=True, methods=['POST'])
     def rate_movie(self, request, pk=None):
@@ -20,8 +22,7 @@ class MovieViewSet(viewsets.ModelViewSet):
         if 'score' in request.data:
             movie = Movie.objects.get(id=pk)
             score = request.data['score']
-            # user = request.user
-            user = User.objects.get(id=1)
+            user = request.user
 
             try:
                 rating = Rating.objects.get(user=user.id, movie=movie.id)
@@ -45,3 +46,4 @@ class MovieViewSet(viewsets.ModelViewSet):
 class RatingViewSet(viewsets.ModelViewSet):
     queryset = Rating.objects.all()
     serializer_class = RatingSerializer
+    authentication_classes = (TokenAuthentication,)
