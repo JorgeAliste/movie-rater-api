@@ -1,0 +1,1 @@
+web: gunicorn movieraterapi.wsgi --log-file -
