@@ -138,4 +138,6 @@ REST_FRAMEWORK = {
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "https://movie-rater-97245.web.app",
+    "https://movie-rater-97245.firebaseapp.com",
 ]
